@@ -6,26 +6,31 @@
     "vscode": {
       "extensions": [
         "EditorConfig.EditorConfig",
-        "redhat.vscode-yaml"
+        "ms-toolsai.jupyter",
+        "ms-vscode.jupyter",
+        "ms-vscode.live-server",
+        "RDebugger.r-debugger",
+        "redhat.vscode-yaml",
+        "REditorSupport.r"
       ]
     }
   },
   "containerEnv": {
     "SHELL": "/bin/bash"
   },
-  "remoteUser": "user",
-  "containerUser": "user",
+  "remoteUser": "jovyan",
+  "containerUser": "jovyan",
   "mounts": [
     {
       "source": "${localEnv:HOME}/.gitconfig",
-      "target": "/home/user/.gitconfig",
+      "target": "/home/jovyan/.gitconfig",
       "type": "bind"
     },
     {
       "source": "${localEnv:HOME}/.ssh",
-      "target": "/home/user/.ssh",
+      "target": "/home/jovyan/.ssh",
       "type": "bind"
     }
   ],
-  "postCreateCommand": "src/main.sh"
+  "postCreateCommand": "R --silent --no-echo --no-save --no-restore -e \"install.packages(c('languageserver', 'IRkernel'), repos='https://cran.r-project.org/'); IRkernel::installspec(name='ir', displayname='R')\""
 }
